@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffd6e7, #ffb8e2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.98);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 40px rgba(255, 105, 180, 0.3);
+            text-align: center;
+            max-width: 850px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border: 12px solid #ff85a2;
+        }
+        
+        h1 {
+            color: #ff66a3;
+            margin-bottom: 25px;
+            font-size: 3.2rem;
+            text-shadow: 3px 3px 0px #ffd1dc;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #ff66a3, #ff99cc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .question {
+            font-size: 2.2rem;
+            color: #ff6699;
+            margin-bottom: 50px;
+            font-weight: bold;
+            padding: 15px;
+            background-color: #fff0f7;
+            border-radius: 20px;
+            border: 4px dashed #ffb8d9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            position: relative;
+            min-height: 150px;
+        }
+        
+        .btn {
+            padding: 22px 55px;
+            font-size: 2.2rem;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+            min-width: 220px;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover:before {
+            left: 100%;
+        }
+        
+        .yes-btn {
+            background: linear-gradient(145deg, #80e87f, #4cd964);
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .yes-btn:hover {
+            transform: scale(1.08) rotate(2deg);
+            box-shadow: 0 15px 25px rgba(76, 217, 100, 0.4);
+        }
+        
+        .no-btn {
+            background: linear-gradient(145deg, #ff8a8a, #ff5252);
+            color: white;
+            position: absolute;
+            transition: all 0.6s ease;
+            z-index: 3;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .no-btn:hover {
+            transform: rotate(5deg);
+        }
+        
+        .bear-container {
+            display: none;
+            margin-top: 40px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .bear {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 40px;
+        }
+        
+        .bear-body {
+            position: absolute;
+            width: 180px;
+            height: 160px;
+            background-color: #ff99cc;
+            border-radius: 70% 70% 60% 60%;
+            top: 90px;
+            left: 35px;
+            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bear-head {
+            position: absolute;
+            width: 140px;
+            height: 120px;
+            background-color: #ff99cc;
+            border-radius: 50%;
+            top: 40px;
+            left: 55px;
+            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bear-ear {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #ff66a3;
+            border-radius: 50%;
+            top: 20px;
+            box-shadow: inset -3px -3px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .ear-left {
+            left: 25px;
+        }
+        
+        .ear-right {
+            right: 25px;
+        }
+        
+        .bear-eye {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            border-radius: 50%;
+            top: 55px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .eye-left {
+            left: 45px;
+        }
+        
+        .eye-right {
+            right: 45px;
+        }
+        
+        .bear-pupil {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #663399;
+            border-radius: 50%;
+            top: 6px;
+            left: 6px;
+        }
+        
+        .bear-nose {
+            position: absolute;
+            width: 30px;
+            height: 20px;
+            background-color: #ff3366;
+            border-radius: 50%;
+            top: 80px;
+            left: 55px;
+        }
+        
+        .bear-bow {
+            position: absolute;
+            width: 60px;
+            height: 40px;
+            background-color: #ff66a3;
+            border-radius: 50%;
+            top: 120px;
+            left: 10px;
+            transform: rotate(30deg);
+        }
+        
+        .bow-center {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: #ff3366;
+            border-radius: 50%;
+            top: 7px;
+            left: 17px;
+        }
+        
+        .bow-loop {
+            position: absolute;
+            width: 25px;
+            height: 40px;
+            background-color: #ff66a3;
+            border-radius: 50%;
+        }
+        
+        .bow-left {
+            top: -5px;
+            left: -10px;
+            transform: rotate(-45deg);
+        }
+        
+        .bow-right {
+            top: -5px;
+            right: -10px;
+            transform: rotate(45deg);
+        }
+        
+        .heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #ff3366;
+            top: 40px;
+            right: 30px;
+            transform: rotate(45deg);
+            animation: heartbeat 1.5s infinite;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .heart:before, .heart:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #ff3366;
+            border-radius: 50%;
+        }
+        
+        .heart:before {
+            top: -25px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -25px;
+        }
+        
+        .message {
+            font-size: 2.5rem;
+            color: #ff66a3;
+            margin-top: 30px;
+            font-weight: bold;
+            text-shadow: 2px 2px 0px #ffd1dc;
+            padding: 20px;
+            background-color: #fff0f7;
+            border-radius: 25px;
+            border: 4px solid #ffb8d9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart-particle {
+            position: absolute;
+            color: #ff66a3;
+            font-size: 28px;
+            opacity: 0;
+            animation: floatUp 5s linear infinite;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sparkle {
+            position: absolute;
+            color: #ffeb3b;
+            font-size: 20px;
+            opacity: 0;
+            animation: sparkle 2s linear infinite;
+        }
+        
+        .counter {
+            font-size: 1.5rem;
+            color: #ff6699;
+            margin-top: 15px;
+            font-style: italic;
+            background-color: #fff0f7;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px dotted #ff99cc;
+        }
+        
+        .flowers {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            font-size: 30px;
+            color: #ff66a3;
+            opacity: 0.7;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: rotate(45deg) scale(1); }
+            5% { transform: rotate(45deg) scale(1.1); }
+            10% { transform: rotate(45deg) scale(1); }
+            15% { transform: rotate(45deg) scale(1.2); }
+            20% { transform: rotate(45deg) scale(1); }
+            100% { transform: rotate(45deg) scale(1); }
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes sparkle {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .bouncing {
+            animation: bounce 1s infinite;
+        }
+        
+        @media (max-width: 700px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .question {
+                font-size: 1.8rem;
+                padding: 12px;
+            }
+            
+            .btn {
+                padding: 18px 40px;
+                font-size: 1.8rem;
+                min-width: 180px;
+            }
+            
+            .message {
+                font-size: 2rem;
+                padding: 15px;
+            }
+            
+            .bear {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .bear-body {
+                width: 150px;
+                height: 130px;
+                top: 70px;
+                left: 25px;
+            }
+            
+            .bear-head {
+                width: 110px;
+                height: 100px;
+                top: 30px;
+                left: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>A Special Question</h1>
+        <div class="question" id="question">Will you be my Valentine?</div>
+        
+        <div class="buttons-container" id="buttonsContainer">
+            <button class="btn yes-btn" id="yesBtn">YES!</button>
+            <button class="btn no-btn" id="noBtn">NO</button>
+        </div>
+        
+        <div class="counter" id="counter">You tried "NO" <span id="noCount">0</span> times</div>
+        
+        <div class="bear-container" id="bearContainer">
+            <div class="bear">
+                <div class="bear-head">
+                    <div class="bear-ear ear-left"></div>
+                    <div class="bear-ear ear-right"></div>
+                    <div class="bear-eye eye-left">
+                        <div class="bear-pupil"></div>
+                    </div>
+                    <div class="bear-eye eye-right">
+                        <div class="bear-pupil"></div>
+                    </div>
+                    <div class="bear-nose"></div>
+                </div>
+                <div class="bear-body"></div>
+                <div class="bear-bow">
+                    <div class="bow-center"></div>
+                    <div class="bow-loop bow-left"></div>
+                    <div class="bow-loop bow-right"></div>
+                </div>
+                <div class="heart"></div>
+            </div>
+            <div class="message" id="message">Yay! You made my day! 💖</div>
+        </div>
+        
+        <div class="hearts" id="heartsContainer"></div>
+        <div class="flowers">
+            <i class="fas fa-spa"></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-spa"></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-spa"></i>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const bearContainer = document.getElementById('bearContainer');
+            const question = document.getElementById('question');
+            const message = document.getElementById('message');
+            const noCountElement = document.getElementById('noCount');
+            const heartsContainer = document.getElementById('heartsContainer');
+            const buttonsContainer = document.getElementById('buttonsContainer');
+            
+            let noCount = 0;
+            let clickCount = 0;
+            const messages = [
+                "Are you sure?",
+                "Really sure?",
+                "Please reconsider!",
+                "Don't be mean!",
+                "Last chance!",
+                "You'll regret this!",
+                "Are you really really sure?",
+                "Pleeeeease!"
+            ];
+            
+            // Create floating hearts
+            function createHearts() {
+                for (let i = 0; i < 20; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart-particle');
+                    heart.innerHTML = '💖';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDelay = Math.random() * 4 + 's';
+                    heart.style.fontSize = (Math.random() * 25 + 20) + 'px';
+                    heartsContainer.appendChild(heart);
+                }
+                
+                // Add some sparkles too
+                for (let i = 0; i < 10; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.classList.add('sparkle');
+                    sparkle.innerHTML = '✨';
+                    sparkle.style.left = Math.random() * 100 + 'vw';
+                    sparkle.style.top = Math.random() * 100 + 'vh';
+                    sparkle.style.animationDelay = Math.random() * 2 + 's';
+                    sparkle.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                    heartsContainer.appendChild(sparkle);
+                }
+            }
+            
+            createHearts();
+            
+            // "NO" button moves on hover or click
+            noBtn.addEventListener('mouseover', function() {
+                moveNoButton();
+            });
+            
+            noBtn.addEventListener('click', function() {
+                noCount++;
+                noCountElement.textContent = noCount;
+                
+                // Change question text after certain number of clicks
+                if (clickCount < messages.length) {
+                    question.textContent = messages[clickCount];
+                    clickCount++;
+                }
+                
+                // Make the button jump away
+                moveNoButton();
+                
+                // Add a cute sound effect (optional)
+                playNoSound();
+            });
+            
+            // Function to move the "NO" button to random positions
+            function moveNoButton() {
+                const container = buttonsContainer.getBoundingClientRect();
+                const button = noBtn.getBoundingClientRect();
+                
+                // Generate random positions within the container
+                const maxX = container.width - button.width - 20;
+                const maxY = container.height - button.height - 20;
+                
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                noBtn.style.left = randomX + 'px';
+                noBtn.style.top = randomY + 'px';
+                
+                // Vibration effect
+                noBtn.style.transform = 'rotate(' + (Math.random() * 25 - 12.5) + 'deg)';
+            }
+            
+            // "YES" button shows the bear
+            yesBtn.addEventListener('click', function() {
+                // Hide question and buttons
+                question.style.display = 'none';
+                buttonsContainer.style.display = 'none';
+                document.getElementById('counter').style.display = 'none';
+                
+                // Show the bear
+                bearContainer.style.display = 'block';
+                
+                // Personalized message based on how many times they clicked "NO"
+                if (noCount === 0) {
+                    message.textContent = "I knew you'd say yes! You're the best! 💕";
+                } else if (noCount < 3) {
+                    message.textContent = "Yay! You made the right choice! So happy! 🌸";
+                } else if (noCount < 6) {
+                    message.textContent = "Finally! You had me worried for a moment! 😊💖";
+                } else {
+                    message.textContent = "Wow, that was tough! But so worth the wait! 🥰";
+                }
+                
+                // Make the bear bounce
+                document.querySelector('.bear').classList.add('bouncing');
+                
+                // Add more hearts and sparkles
+                for (let i = 0; i < 25; i++) {
+                    setTimeout(() => {
+                        const heart = document.createElement('div');
+                        heart.classList.add('heart-particle');
+                        heart.innerHTML = Math.random() > 0.5 ? '💖' : '💝';
+                        heart.style.left = Math.random() * 100 + 'vw';
+                        heart.style.animationDelay = Math.random() * 1 + 's';
+                        heart.style.fontSize = (Math.random() * 30 + 25) + 'px';
+                        heartsContainer.appendChild(heart);
+                    }, i * 100);
+                }
+                
+                // Play celebration sound
+                playCelebrationSound();
+            });
+            
+            // Function for celebration sound
+            function playCelebrationSound() {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // Play a happy little tune
+                    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                    
+                    notes.forEach((freq, index) => {
+                        setTimeout(() => {
+                            const oscillator = audioContext.createOscillator();
+                            const gainNode = audioContext.createGain();
+                            
+                            oscillator.connect(gainNode);
+                            gainNode.connect(audioContext.destination);
+                            
+                            oscillator.type = 'sine';
+                            oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+                            
+                            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                            
+                            oscillator.start(audioContext.currentTime);
+                            oscillator.stop(audioContext.currentTime + 0.5);
+                        }, index * 200);
+                    });
+                } catch (e) {
+                    console.log("Audio not supported in this browser");
+                }
+            }
+            
+            // Function for "no" sound (optional)
+            function playNoSound() {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+                    oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.2);
+                    
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.2);
+                } catch (e) {
+                    // Audio not supported, continue silently
+                }
+            }
+            
+            // Initialize the "NO" button in a random position
+            moveNoButton();
+            
+            // Add some interactive sparkles when clicking
+            document.addEventListener('click', function(e) {
+                if (e.target !== noBtn && e.target !== yesBtn) {
+                    const sparkle = document.createElement('div');
+                    sparkle.classList.add('sparkle');
+                    sparkle.innerHTML = '✨';
+                    sparkle.style.left = e.clientX + 'px';
+                    sparkle.style.top = e.clientY + 'px';
+                    sparkle.style.position = 'fixed';
+                    sparkle.style.fontSize = '25px';
+                    sparkle.style.animation = 'sparkle 1s linear forwards';
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => {
+                        sparkle.remove();
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>-
